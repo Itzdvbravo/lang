@@ -1,0 +1,11 @@
+func even(a) {
+    set res = a % 2;
+    if (res == 0) {
+        return "Even";
+    } else {
+        return "Odd";
+    }
+}
+
+set isEven = even(5);
+print(isEven);
