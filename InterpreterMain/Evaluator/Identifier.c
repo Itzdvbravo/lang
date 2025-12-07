@@ -6,6 +6,7 @@
 #include "../../Frames/Frames.h"
 
 bool runBody(Value body, Value* value, VirtualMachine *vm, Frame* currentFrame, Value (*evalutate)(ASTNode *, VirtualMachine*, Frame*)) {
+    // printf("Running body with %d items\n", body.list->top + 1);
     for (int i = 0; i <= body.list->top; i++) {
         ASTNode* node = (ASTNode*)body.list->array[i];
         Value val = evalutate(node, vm, currentFrame);
@@ -49,13 +50,17 @@ void identifier(ASTNode *node, Value *value, VirtualMachine *vm, Frame* currentF
         } else if (body == NULL) {
             printf("Error: Function %s has no body\n", node->value.c);
             exit(1);
+        } else if (body->value.type != TYPE_LIST_BODY) {
+            printf("Error: Function %s has invalid body, pointer %p\n", node->value.c, (void *)body);
+            exit(1);
         } else if (para_values->value.list->top != para_identifier->value.list->top) {
             printf("Error: Function %s expected %d arguments, provided %d\n", node->value.c, para_identifier->value.list->top + 1, para_values->value.list->top + 1);
             exit(1);
         } else {
-            // printf("Function %s called\n", node->value.c);
             Frame* newFrame = createFrame(currentFrame, 97);
+            // printf("Function %s called\n", node->value.c);
             for (int i = 0; i <= para_identifier->value.list->top; i++) {
+                // printf("Inserting parameter %d\n", i);
                 ASTNode* identifier = (ASTNode*)para_identifier->value.list->array[i];
                 ASTNode* var = (ASTNode*)para_values->value.list->array[i];
                 var->type = identifier->type;
@@ -65,7 +70,7 @@ void identifier(ASTNode *node, Value *value, VirtualMachine *vm, Frame* currentF
             runBody(body->value, value, vm, newFrame, evalutate);
         }
     } else {
-        printf("Error: Variable '%s' has unsupported type\n", node->value.c);
+        printf("Error: Variable '%s' has unsupported type, type %d\n", node->value.c, found_node->type);
         exit(1);
     }
 }

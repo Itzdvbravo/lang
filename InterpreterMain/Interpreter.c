@@ -15,11 +15,12 @@ void process_lines(char *str) {
 
     while (*str != '\0') {
         ASTNode* ast = tokenize_line(&str, TOKEN_EOL);
-        //printf(" - Root Node %d -\n", ast->type);
+        // printf("\n - Root Node %d -\n", ast->type);
         if(!ast) {str+=1; continue;}
 
         Value result = evalutate(ast, vm, frame);
         while (result.type == TYPE_LIST_BODY) {
+            printf("Running body...\n");
             result.type = TYPE_NOT_ACTUAL_VALUE;
             for (int i = 0; i <= result.list->top; i++) {
                 ASTNode* node = (ASTNode*)result.list->array[i];
@@ -27,10 +28,10 @@ void process_lines(char *str) {
             }
         }
         //Think about freeing nodes later
-        freeNodes(&ast);
+        // freeNodes(&ast);
     }
 	freeVM(vm);
-	// clearStorage();
+	 //clearStorage();
 }
 
 void Interpret(char *str) {

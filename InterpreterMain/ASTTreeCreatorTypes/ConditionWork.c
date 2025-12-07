@@ -7,7 +7,7 @@
 Stack* getBody(ASTNode *node, char **theStr, ASTNode *(*tokenize_line)(char**, TokenType)) {
     bool wasClosed = false;
     Stack *stack = createStack(10);
-    // printf("ConditionWork Open\n");
+    // printf("BodyWork Open\n");
     while (**theStr != '\0') {
         ASTNode* ast = tokenize_line(theStr, TOKEN_SCOPE_BRACKET_CLOSE);
         // printf("ConditionWork: %d\n", ast->type);

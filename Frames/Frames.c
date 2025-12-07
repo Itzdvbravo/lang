@@ -30,6 +30,7 @@ Frame* createFrame(Frame* parent, int hashTableSize) {
 
 ASTNode* searchForRefInFrame(Frame *frame, char *key) {
     ASTNode* node = searchInHashTable(frame->references, key);
+    // printf("Searching for '%d' in parent frame\n", node->type);
     if (node == NULL) {
         if (frame->parent != NULL) {
             node = searchInHashTable(frame->parent->references, key);
@@ -51,18 +52,18 @@ void VMTrackObject(VirtualMachine* vm, LangObject* item) {
 }
 
 void freeVM(VirtualMachine *vm) {
-	for (int i = 0; i < vm->frames->top+1; i++) {
-		//printf("Freeing frame %d\n", i);
-		Frame* frame = (Frame*)stack_pop(vm->frames);
-        clearStorage(frame->references);
-        free(frame->references);
-        free(frame);
-	}
-    for (int i = 0; i < vm->objects->top + 1; i++) {
-        LangObject* obj = (LangObject*)stack_pop(vm->objects);
-        /*freeLangObject(obj);*/
-    }
-	stack_free(vm->frames);
-	stack_free(vm->objects);
-    free(vm);
+	// for (int i = 0; i < vm->frames->top+1; i++) {
+	// 	//printf("Freeing frame %d\n", i);
+	// 	Frame* frame = (Frame*)stack_pop(vm->frames);
+    //     clearStorage(frame->references);
+    //     free(frame->references);
+    //     free(frame);
+	// }
+    // for (int i = 0; i < vm->objects->top + 1; i++) {
+    //     LangObject* obj = (LangObject*)stack_pop(vm->objects);
+    //     /*freeLangObject(obj);*/
+    // }
+	// stack_free(vm->frames);
+	// stack_free(vm->objects);
+    // free(vm);
 }

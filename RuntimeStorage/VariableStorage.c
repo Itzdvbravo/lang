@@ -17,13 +17,15 @@ int hash(HashTable *table, char *str){
     unsigned long h = 0;
     int c;
 
-    while ((c = *str++))
+    while ((c = *str++)) {
         h = c + (h << 6) + (h << 16) - h;
+    }
     return h % table->size;
 }
 
 void insert(HashTable *table, char *key, ASTNode *node) {
     int index = hash(table, key);
+    // printf("Inserting %s at index %d\n", key, index);
     Variable *var = (malloc(sizeof(Variable)));
     node->isMarked = true;
     var->key = key;
@@ -35,6 +37,7 @@ void insert(HashTable *table, char *key, ASTNode *node) {
 ASTNode* searchInHashTable(HashTable *table, char *key) {
     int index = hash(table, key);
     Variable *var = table->array[index];
+    // printf("Searching for %s at index %d\n", key, index);
     while (var) {
         if (strcmp(var->key, key) == 0) return var->node;
         var = var->next;
@@ -43,19 +46,19 @@ ASTNode* searchInHashTable(HashTable *table, char *key) {
 }
 
 void clearStorage(HashTable *table) {
-    for (int i = 0; i < table->size; i++) {
-		Variable* var = table->array[i];
-        while (var != NULL) {
-			Variable* temp = var->next;
-            free(var->key);
-			if (var->node) {
-				freeNodes(&(var->node));
-			}
-			free(var);
-			var = temp;
-        }
-    }
-	free(table->array);
+    // for (int i = 0; i < table->size; i++) {
+	// 	Variable* var = table->array[i];
+    //     while (var != NULL) {
+	// 		Variable* temp = var->next;
+    //         free(var->key);
+	// 		if (var->node) {
+	// 			freeNodes(&(var->node));
+	// 		}
+	// 		free(var);
+	// 		var = temp;
+    //     }
+    // }
+	// free(table->array);
 }
 
 // void clearStorage() {

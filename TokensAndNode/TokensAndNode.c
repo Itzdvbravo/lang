@@ -36,11 +36,11 @@ void freeNodeInternals(ASTNode* node) {
 }
 
 void freeNodes(ASTNode** node) {
-    if (!*node) return;
-    //if ((*node)->isMarked) return;
-	freeNodeInternals(*node);
-    if ((*node)->left) freeNodes(&((*node)->left));
-    if ((*node)->right) freeNodes(&((*node)->right));
-    free(*node);
-    *node = NULL;
+    // if (!*node) return;
+    // //if ((*node)->isMarked) return;
+	// freeNodeInternals(*node);
+    // if ((*node)->left) freeNodes(&((*node)->left));
+    // if ((*node)->right) freeNodes(&((*node)->right));
+    // free(*node);
+    // *node = NULL;
 }

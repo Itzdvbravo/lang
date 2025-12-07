@@ -39,7 +39,7 @@ void* stack_pop(Stack* stack) {
 }
 
 void stack_free(Stack* stack) {
-    if (stack == NULL) return;
-    free(stack->array);
-    free(stack);
+    // if (stack == NULL) return;
+    // free(stack->array);
+    // free(stack);
 }

@@ -20,8 +20,8 @@ ASTNode* tokenize_line(char **theStr, TokenType extraReturningToken) {
     int count = 0;
     while (**theStr != '\0' && currentToken.type != TOKEN_EOF && currentToken.type != TOKEN_EOL) {
         currentToken = getToken(theStr, root_node);
-        // printf("Token %d | ", currentToken.type);
-        // printf("Token %d %d |\n", currentToken.type, extraReturningToken);
+        //  printf("Token %d | ", currentToken.type);
+        //  printf("Token %d %d |\n", currentToken.type, extraReturningToken);
         if (count > 1000) {
             printf(" || Error: Too many tokens || \n");
             exit(1);
